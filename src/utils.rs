@@ -62,3 +62,24 @@ fn suma_pares_con_unos_impares() {
 fn suma_pares_sin_pares() {
   assert_eq!(suma_pares(&[5, 47, 25]), 0);
 }
+
+
+// Ejercicio 4
+fn cantidad_impares(lista: &[i32]) -> u32 {
+  lista
+    .iter()
+    .fold(0, |acc, item| if !es_par(*item) { acc + 1 } else { acc })
+} 
+
+#[test]
+fn cantidad_impares_con_solo_impares() {
+  assert_eq!(cantidad_impares(&[33, 43, 3]), 3);
+}
+#[test]
+fn cantidad_impares_con_unos_pares() {
+  assert_eq!(cantidad_impares(&[7, 32, 3, 42]), 2);
+}
+#[test]
+fn cantidad_impares_sin_impares() {
+  assert_eq!(cantidad_impares(&[2, 32, 24]), 0);
+}
