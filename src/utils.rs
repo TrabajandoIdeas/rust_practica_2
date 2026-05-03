@@ -100,3 +100,23 @@ fn cantidad_impares_sin_impares() {
   assert_eq!(cantidad_impares(&[2, 32, 24]), 0);
 }
 
+
+// Ejercicio 5
+fn duplicar_valores(lista: &[f64]) -> Vec<f64> {
+  let mut nueva_lista: Vec<f64> = Vec::new();
+
+  for item in lista {
+    nueva_lista.push(*item * 2.0);
+  }
+
+  return nueva_lista;
+}
+
+#[test]
+fn duplicar_valores_con_valores() {
+  assert_eq!(duplicar_valores(&[3.5, 2.9, 5.0]), vec![7.0, 5.8, 10.0]);
+}
+#[test]
+fn duplicar_valores_sin_valores() {
+  assert_eq!(duplicar_valores(&[]), vec![]);
+}
