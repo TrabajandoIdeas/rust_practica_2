@@ -165,3 +165,36 @@ fn cantidad_de_mayores_cont_todos_menores() {
   assert_eq!(cantidad_de_mayores(&[32, 23,65,2,4,40], 70), 0);
 }
 
+
+// Ejercicio 8
+fn sumar_arreglos(lista_a: &[f64], lista_b: &[f64]) -> Vec<f64> {
+  if lista_a.len() != lista_b.len() {
+    panic!("Both arrays should have the same size");
+  }
+  
+  let mut index = 0;
+  let mut suma: Vec<f64> = Vec::new();
+
+  while index < lista_a.len() {
+    suma.push(lista_a[index] + lista_b[index]);
+
+    index += 1;
+  }
+
+  return suma;
+}
+
+#[test]
+fn sumar_arreglos_variados() {
+  assert_eq!(sumar_arreglos(&[23.5, 10.0], &[82.5, 87.9]), vec![106.0, 97.9])
+}
+#[test]
+fn sumar_arreglos_vacios() {
+  assert_eq!(sumar_arreglos(&[], &[]), vec![]);
+}
+#[test]
+#[should_panic(expected = "Both arrays should have the same size")]
+fn sumar_arreglos_panic() {
+  sumar_arreglos(&[2.0], &[3.0,4.0]);
+}
+
