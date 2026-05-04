@@ -120,3 +120,21 @@ fn duplicar_valores_con_valores() {
 fn duplicar_valores_sin_valores() {
   assert_eq!(duplicar_valores(&[]), vec![]);
 }
+
+
+// Ejercicio 6
+fn longitud_de_cadenas(lista: &[String]) -> Vec<usize> {
+  let mut nueva_lista: Vec<usize> = Vec::new();
+
+  for item in lista {
+    nueva_lista.push(item.len());
+  }
+
+  return nueva_lista;
+}
+
+#[test]
+fn longitud_de_cadenas_con_3_cadenas() {
+  assert_eq!(longitud_de_cadenas(&[String::from("Hola"), String::from(" "), String::from("Mundo")]), vec![4, 1, 5])
+}
+
