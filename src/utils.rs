@@ -102,11 +102,13 @@ fn cantidad_impares_sin_impares() {
 
 
 // Ejercicio 5
-pub fn duplicar_valores(lista: &[f64]) -> Vec<f64> {
-  let mut nueva_lista: Vec<f64> = Vec::new();
+pub fn duplicar_valores<const SIZE: usize>(lista: &[f64]) -> [f64;SIZE] {
+  let mut nueva_lista = [0.0; SIZE];
+  let mut index = 0;
 
-  for item in lista {
-    nueva_lista.push(*item * 2.0);
+  while index < lista.len() {
+      nueva_lista[index] = lista[index] * 2.0;
+      index += 1;
   }
 
   return nueva_lista;
@@ -114,28 +116,28 @@ pub fn duplicar_valores(lista: &[f64]) -> Vec<f64> {
 
 #[test]
 fn duplicar_valores_con_valores() {
-  assert_eq!(duplicar_valores(&[3.5, 2.9, 5.0]), vec![7.0, 5.8, 10.0]);
+  assert_eq!(duplicar_valores(&[3.5, 2.9, 5.0]), [7.0, 5.8, 10.0]);
 }
 #[test]
 fn duplicar_valores_sin_valores() {
-  assert_eq!(duplicar_valores(&[]), vec![]);
+  assert_eq!(duplicar_valores(&[]), []);
 }
 
 
 // Ejercicio 6
-fn longitud_de_cadenas(lista: &[String]) -> Vec<usize> {
-  let mut nueva_lista: Vec<usize> = Vec::new();
+pub fn longitud_de_cadenas<const SIZE: usize>(lista: &[String]) -> [usize;SIZE] {
+  let mut nueva_lista: [usize; SIZE] = [0;SIZE];
 
-  for item in lista {
-    nueva_lista.push(item.len());
+  for i in 0..lista.len() {
+      nueva_lista[i] = lista[i].len();
   }
-
+  
   return nueva_lista;
 }
 
 #[test]
 fn longitud_de_cadenas_con_3_cadenas() {
-  assert_eq!(longitud_de_cadenas(&[String::from("Hola"), String::from(" "), String::from("Mundo")]), vec![4, 1, 5])
+  assert_eq!(longitud_de_cadenas(&[String::from("Hola"), String::from(" "), String::from("Mundo")]), [4, 1, 5])
 }
 
 
@@ -167,18 +169,15 @@ fn cantidad_de_mayores_cont_todos_menores() {
 
 
 // Ejercicio 8
-pub fn sumar_arreglos(lista_a: &[f64], lista_b: &[f64]) -> Vec<f64> {
-  if lista_a.len() != lista_b.len() {
+pub fn sumar_arreglos<const SIZE: usize>(lista_a: &[f64], lista_b: &[f64]) -> [f64;SIZE] {
+  if lista_a.len() != lista_b.len() && lista_a.len() != SIZE {
     panic!("Both arrays should have the same size");
   }
-  
-  let mut index = 0;
-  let mut suma: Vec<f64> = Vec::new();
 
-  while index < lista_a.len() {
-    suma.push(lista_a[index] + lista_b[index]);
+  let mut suma: [f64; SIZE] = [0.0; SIZE];
 
-    index += 1;
+  for index in 0..lista_a.len() {
+    suma[index] = lista_a[index] + lista_b[index];
   }
 
   return suma;
@@ -186,16 +185,16 @@ pub fn sumar_arreglos(lista_a: &[f64], lista_b: &[f64]) -> Vec<f64> {
 
 #[test]
 fn sumar_arreglos_variados() {
-  assert_eq!(sumar_arreglos(&[23.5, 10.0], &[82.5, 87.9]), vec![106.0, 97.9])
+  assert_eq!(sumar_arreglos(&[23.5, 10.0], &[82.5, 87.9]), [106.0, 97.9])
 }
 #[test]
 fn sumar_arreglos_vacios() {
-  assert_eq!(sumar_arreglos(&[], &[]), vec![]);
+  assert_eq!(sumar_arreglos(&[], &[]), []);
 }
 #[test]
 #[should_panic(expected = "Both arrays should have the same size")]
 fn sumar_arreglos_panic() {
-  sumar_arreglos(&[2.0], &[3.0,4.0]);
+  sumar_arreglos::<2>(&[2.0], &[3.0,4.0]);
 }
 
 
@@ -227,4 +226,5 @@ fn cantidad_en_rango_sin_valores_en_rango() {
 fn cantidad_en_rango_con_inferior_mayor_a_superior() {
   cantidad_en_rango(&[2, 32, 24], 30, 20);
 }
+
 
